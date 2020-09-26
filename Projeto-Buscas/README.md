@@ -24,7 +24,7 @@ Exercitar e fixar conhecimentos adquiridos sobre Resolução de Problemas atrav�
 ## <a name='DescriodoTrabalho'></a>2. Descrição do Trabalho
 
 ### <a name='Caminhoentrecidades'></a>2.1 Caminho entre cidades
-Crie um agente capaz de encontrar o menor caminho entre duas cidades, com mapa definido como segue. O agente deve receber como entradas o id da cidade origem, id da cidade destino e nome do arquivo de dados. Usando este agente encontre o menor caminho entre as cidades Alice Springs (id 5) e Yulara da Australia(id 219) do arquivo australia.csv, explicite o caminho (a lista das cidades) da solução e também a distância do início ao fim.
+Crie um agente capaz de encontrar o menor caminho entre duas cidades, com mapa definido como segue. O agente deve receber como entradas o id da cidade origem, id da cidade destino e nome do arquivo de dados. Usando este agente encontre o menor caminho entre as cidades Alice Springs (id 5) e Yulara da Australia (id 219) do arquivo australia.csv, explicite o caminho (a lista das cidades) da solução e também a distância do início ao fim.
 
 #### <a name='Descriodoarquivodedados'></a>2.1.1 Descrição do arquivo de dados
 O arquivo `australia.csv` tem os seguintes campos: ID da cidade,nome da cidade, coordenada x, coordenada y, estado e população. A distância em linha reta entre as cidades pode ser calculada a partir das coordenadas cartesianas (x,y) disponibilizadas no arquivo `australia.csv`. Uma cidade com ID x se conecta com as cidades x+2 (se existir) e x-1, se x>1 e x é par. Se X é ímpar e x>2, esta cidade x se conecta com as cidades x-2 e x+1 (se existir cidade com ID x+1). Caso as cidades existam distância pela estrada é 10% maior que a distância em linha reta.
