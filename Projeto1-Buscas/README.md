@@ -1,5 +1,13 @@
 # (CTC-17) Projeto de Buscas
 
+## <a name='Cadernoscontendoaimplementaofinal:'></a>Cadernos contendo a implementação final:
+- [Parte 1: Caminho entre cidades](city-path.ipynb)
+- [Parte 1: Resolução do Light-Up (Akari)](hill-climb.ipynb)
+
+---
+
+## Descrição das atividades
+
 <!-- vscode-markdown-toc -->
 * [1. Objetivo](#Objetivo)
 * [2. Descrição do Trabalho](#DescriodoTrabalho)
@@ -14,7 +22,6 @@
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
-
 
 
 ## <a name='Objetivo'></a>1. Objetivo
@@ -39,6 +46,3 @@ Explicite a sua modelagem para resolver o problema.
 Implemente os algoritmos para a resolução do problema, na linguagem de sua escolha. (Não utilize implementações prontas disponíveis na Internet, nem frameworks que implementem o métodos de resolução escolhido. Você pode usar apenas bibliotecas que facilitem a implementação das estruturas de dados necessárias).
 
 ![akari](images/akari.png)
-
-x (impar)    (x - 2)       (x + 1)       (x + 2)
-(x + 2)      (x)
