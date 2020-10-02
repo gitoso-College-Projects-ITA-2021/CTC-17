@@ -2,7 +2,7 @@
 
 ## <a name='Cadernoscontendoaimplementaofinal:'></a>Cadernos contendo a implementação final:
 - [Parte 1: Caminho entre cidades](city-path.ipynb)
-- [Parte 1: Resolução do Light-Up (Akari)](hill-climb.ipynb)
+- [Parte 2: Resolução do Light-Up (Akari)](hill-climb.ipynb)
 
 ---
 
