@@ -4,6 +4,7 @@ Repositório contendo os códigos desenvolvidos para a disciplina de CTC-17 do I
 
 **Projetos:**
 - [Projeto 1: Resolução por busca](Projeto1-Buscas)
+- [Projeto 2: Melhoria Iterativa e Satisfação de Restrições](Projeto2-Melhoria_Iterativa-Satisfacao_Restricoes)
 
 **Desenvolvedores:**
 - [Adrisson Rogério Samersla](https://github.com/adrissonsamersla)
