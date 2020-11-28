@@ -50,20 +50,3 @@ net.trainParam.max_fail   = 1000;
 %% 6) Simular as respostas de saída da rede MLP.
 
 a = sim(net, P);
-
-%% Fase 5: Testando a Rede Neural
-aux = size(X);
-for i = 1:1:aux(1)
-    for j = 1:1:aux(2)
-        Paux = [X(i,j) Y(i,j)]';
-        Zteste(i,j) = net(Paux);
-    end
-end
-figure(1);
-hold off;
-plot3(Xrna, Yrna, Zrna, '.r');
-hold on;
-mesh(X, Y, Zteste);
-grid
-
-%% Fase 6: Não copiei ... =(
