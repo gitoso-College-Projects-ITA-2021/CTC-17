@@ -15,8 +15,11 @@ clc
 
 
 %% 1) Padrões de Entrada e Saída
-camargos = load('datasets/01-camargos.txt');  % Vetor 82 x 12 (1971 - 2012)
-furnas   = load('datasets/02-furnas.txt');    % Vetor 82 x 12 (1971 - 2012)
+camargoos = load('datasets/01-camargos.txt');  % Vetor 82 x 12 (1971 - 2012)
+furnaas   = load('datasets/02-furnas.txt');    % Vetor 82 x 12 (1971 - 2012)
+
+camargos = reshape(camargoos, 1, []);
+furnas = reshape(furnaas, 1, []);
 
 P_camargos_t_dt = [];
 P_camargos_t = [];
@@ -25,15 +28,14 @@ P_furnas_t = [];
 Tcamargos = [];
 Tfurnas = [];
 
-for i = 2:1:40
-    P_camargos_t_dt = [P_camargos_t_dt camargos(i-1,:)'];
-    P_camargos_t    = [P_camargos_t    camargos(i,:)'];
-    P_furnas_t_dt   = [P_furnas_t_dt   furnas(i-1,:)'];
-    P_furnas_t      = [P_furnas_t      furnas(i,:)'];
-    
-    Tcamargos       = [Tcamargos       camargos(i+1,:)'];
-    Tfurnas         = [Tfurnas         furnas(i+1,:)'];
-end
+P_camargos_t_dt = camargos(:, 1:982);
+P_camargos_t    = camargos(:, 2:983);
+P_furnas_t_dt   = furnas(:, 1:982);
+P_furnas_t      = furnas(:, 2:983);
+
+Tcamargos       = camargos(:, 3:984);
+Tfurnas         = furnas(:, 3:984);
+
 
 P = [P_camargos_t_dt; P_camargos_t; P_furnas_t_dt; P_furnas_t];
 T = [Tcamargos; Tfurnas];
@@ -62,7 +64,7 @@ net.layers{2}.transferFcn = 'purelin';
 net.performFcn            = 'mse';
 net.trainFcn              = 'trainlm';
 net.trainParam.epochs     = 10000;
-net.trainParam.time       = 240;
+net.trainParam.time       = 60;
 net.trainParam.lr         = 0.2;
 net.trainParam.min_grad   = 10^-8;
 net.trainParam.max_fail   = 1000;
@@ -72,32 +74,29 @@ net.trainParam.max_fail   = 1000;
 %% 6) Simular as respostas de saída da rede MLP.
 
 % 6.1 - Resultados da Simulação
-xS = 1:1:(42*12);
-PsA = [camargos(1,:)'; camargos(2, :)'; furnas(1, :)'; furnas(2, :)'];
+xS = 1:1:(82*12-1);
+PsA = [camargos(1,1)'; camargos(1, 2)'; furnas(1, 2)'; furnas(1, 2)'];
 Ms = PsA;
-PsM = [camargos(2, :)'; furnas(2, :)'];
+PsM = [camargos(1, 2)'; furnas(1, 2)'];
 
 Ms2 = [];
 Ms1 = [];
 
-for i = 1:1:41
+for i = 1:1:982
     PsD = sim(net, PsA);
     %Ms = [Ms PsD];
     % Ms1 = [Ms1 PsD(1, :)]
-    Ms1 = [Ms1 PsD(1:12, :)];
-    Ms2 = [Ms2 PsD(13:24, :)];
+    Ms1 = [Ms1 PsD(1, 1)];
+    Ms2 = [Ms2 PsD(2, 1)];
     
-    PsA = [PsM(1:12, :); PsD(1:12, :); PsM(13:24, :); PsD(13:24, :)]
+    PsA = [PsM(1, 1); PsD(1, 1); PsM(2, 1); PsD(2, 1)];
     PsM = PsD;
 end
 
-xP = 1:1:(41*12);
-xF = (41*12)+1:1:42*12;
-XcamargosP = [];
-for i = 1:1:41
-    XcamargosP = [XcamargosP camargos(i,:)];
-end
-XcamargosF = camargos(42,:);
+xP = 1:1:(81*12);
+XcamargosP = camargos(:, 1:972);
+xF = (81*12)+1:1:82*12;
+XcamargosF = camargos(:, 973:end);
 plot(xP, XcamargosP, 'b', xF, XcamargosF, 'r');
 xlabel('Meses');
 ylabel('Vazão');
@@ -106,20 +105,16 @@ grid
 hold on
 
 yS1 = [];
-Ms1 = [camargos(1, :)' Ms1];
-for i = 1:1:42
-    yS1 = [yS1 Ms1(:,i)'];
-end
-plot(xS, yS1, ':m');
+Ms1 = [camargos(1,1)' Ms1];
+plot(xS, Ms1, ':m');
 hold off
 
 pause()
 
-XfurnasP = [];
-for i = 1:1:41
-    XfurnasP = [XfurnasP furnas(i,:)];
-end
-XfurnasF = furnas(42,:);
+xP = 1:1:(81*12);
+XfurnasP = furnas(:, 1:972);
+xF = (81*12)+1:1:82*12;
+XfurnasF = furnas(:, 973:end);
 plot(xP, XfurnasP, 'b', xF, XfurnasF, 'r');
 xlabel('Meses');
 ylabel('Vazão');
@@ -128,11 +123,8 @@ grid
 hold on
 
 yS2 = [];
-Ms2 = [furnas(1, :)' Ms2];
-for i = 1:1:42
-    yS2 = [yS2 Ms2(:,i)'];
-end
-plot(xS, yS2, ':m');
+Ms2 = [furnas(1,1)' Ms2];
+plot(xS, Ms2, ':m');
 hold off
 
 
