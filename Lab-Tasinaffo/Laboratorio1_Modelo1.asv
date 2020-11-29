@@ -66,7 +66,7 @@ net.layers{2}.transferFcn = 'purelin';
 net.performFcn            = 'mse';
 net.trainFcn              = 'trainlm';
 net.trainParam.epochs     = 10000;
-net.trainParam.time       = 120;
+net.trainParam.time       = 60;
 net.trainParam.lr         = 0.2;
 net.trainParam.min_grad   = 10^-8;
 net.trainParam.max_fail   = 1000;
@@ -102,16 +102,18 @@ title('Vazão do Rio Camargo');
 grid
 hold on
 
-xS = 3:1:N;
+xS = 2:1:(82*12-1);
+yS1 = [];
+
 plot(xS, Ms1, ':m');
 hold off
 
 pause()
 
-xP = 1:1:N-12;
-XfurnasP = furnas(:, 1:N-12);
-xF = (N-12)+1:1:N;
-XfurnasF = furnas(:, (N-12)+1:N);
+xP = 1:1:(81*12);
+XfurnasP = furnas(:, 1:972);
+xF = (81*12)+1:1:82*12;
+XfurnasF = furnas(:, 973:end);
 plot(xP, XfurnasP, 'b', xF, XfurnasF, 'r');
 xlabel('Meses');
 ylabel('Vazão');
@@ -119,8 +121,8 @@ title('Vazão do Rio Furnas');
 grid
 hold on
 
-xS = 3:1:N;
-Ms2 = [Ms2];
+yS2 = [];
+Ms2 = [furnas(1,1)' Ms2];
 plot(xS, Ms2, ':m');
 hold off
 
