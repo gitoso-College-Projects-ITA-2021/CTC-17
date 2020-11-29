@@ -64,7 +64,7 @@ net.trainParam.showWindow = true;
 net.layers{1}.transferFcn = 'tansig';
 net.layers{2}.transferFcn = 'purelin';
 net.performFcn            = 'mse';
-net.trainFcn              = 'trainlm';
+net.trainFcn              = algorithm;
 net.trainParam.epochs     = 10000;
 net.trainParam.time       = 120;
 net.trainParam.lr         = 0.2;
@@ -76,20 +76,33 @@ net.trainParam.max_fail   = 1000;
 %% 6) Simular as respostas de saída da rede MLP.
 
 % 6.1 - Resultados da Simulação
-PsA = [camargos(1, 1); camargos(1, 2); furnas(1, 1); furnas(1, 2)];
-PsM = [camargos(1, 2); furnas(1, 2)];
+
+% PsA = [camargos(1, 1); camargos(1, 2); furnas(1, 1); furnas(1, 2)];
+% PsM = [camargos(1, 2); furnas(1, 2)];
+% 
+% Ms1 = [];
+% Ms2 = [];
+% 
+% for i = 1:1:N-2
+%     PsD = sim(net, PsA);
+%     Ms1 = [Ms1 PsD(1, 1)];
+%     Ms2 = [Ms2 PsD(2, 1)];
+%     
+%     PsA = [PsM(1, 1); PsD(1, 1); PsM(2, 1); PsD(2, 1)];
+%     PsM = PsD;
+% end
 
 Ms1 = [];
 Ms2 = [];
 
-for i = 1:1:N-2
+
+for i = 2:1:N-1
+    PsA = [camargos(1, i-1); camargos(1, i); furnas(1, i-1); furnas(1, i)];
     PsD = sim(net, PsA);
     Ms1 = [Ms1 PsD(1, 1)];
     Ms2 = [Ms2 PsD(2, 1)];
-    
-    PsA = [PsM(1, 1); PsD(1, 1); PsM(2, 1); PsD(2, 1)];
-    PsM = PsD;
 end
+
 
 xP = 1:1:N-12;
 XcamargosP = camargos(:, 1:N-12);
@@ -106,7 +119,7 @@ xS = 3:1:N;
 plot(xS, Ms1, ':m');
 hold off
 
-pause()
+figure(2)
 
 xP = 1:1:N-12;
 XfurnasP = furnas(:, 1:N-12);
